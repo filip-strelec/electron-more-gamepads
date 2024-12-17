@@ -1,82 +1,52 @@
 gclient_gn_args_from = 'src'
 
 vars = {
-  'chromium_version':
-    '118.0.5993.144',
-  'node_version':
-    'v18.17.1',
-  'nan_version':
-    '16fa32231e2ccd89d2804b3f765319128b20c4ac',
-  'squirrel.mac_version':
-    '0e5d146ba13101a1302d59ea6e6e0b3cace4ae38',
-  'reactiveobjc_version':
-    '74ab5baccc6f7202c8ac69a8d1e152c29dc1ea76',
-  'mantle_version':
-    '78d3966b3c331292ea29ec38661b25df0a245948',
-
+  'chromium_version': '118.0.5993.144',  # Can be replaced dynamically if needed
+  'node_version': 'v18.17.1',
+  'nan_version': '16fa32231e2ccd89d2804b3f765319128b20c4ac',
+  'squirrel.mac_version': '0e5d146ba13101a1302d59ea6e6e0b3cace4ae38',
+  'reactiveobjc_version': '74ab5baccc6f7202c8ac69a8d1e152c29dc1ea76',
+  'mantle_version': '78d3966b3c331292ea29ec38661b25df0a245948',
   'pyyaml_version': '3.12',
 
-  'chromium_git': 'https://chromium.googlesource.com',
+  # Git repository URLs
+  'chromium_git': 'https://github.com/filip-strelec',
   'electron_git': 'https://github.com/electron',
   'nodejs_git': 'https://github.com/nodejs',
   'yaml_git': 'https://github.com/yaml',
   'squirrel_git': 'https://github.com/Squirrel',
   'reactiveobjc_git': 'https://github.com/ReactiveCocoa',
   'mantle_git': 'https://github.com/Mantle',
-  
-  # The path of the sysroots.json file.
+
+  # Path to sysroots.json
   'sysroots_json_path': 'electron/script/sysroots.json',
 
-  # KEEP IN SYNC WITH utils.js FILE
+  # Yarn version
   'yarn_version': '1.15.2',
 
-  # To be able to build clean Chromium from sources.
+  # Build settings
   'apply_patches': True,
-
-  # To use an mtime cache for patched files to speed up builds.
   'use_mtime_cache': True,
-
-  # To allow in-house builds to checkout those manually.
   'checkout_chromium': True,
   'checkout_node': True,
   'checkout_nan': True,
   'checkout_pgo_profiles': True,
-
-  # It's only needed to parse the native tests configurations.
-  'checkout_pyyaml': False,
-
-  'use_rts': False,
-
-  'mac_xcode_version': 'default',
-
-  'generate_location_tags': False,
-
-  # To allow running hooks without parsing the DEPS tree
   'process_deps': True,
-
-  'checkout_nacl':
-    False,
-  'checkout_libaom':
-    True,
-  'checkout_oculus_sdk':
-    False,
-  'checkout_openxr':
-    False,
-  'build_with_chromium':
-    True,
-  'checkout_android':
-    False,
-  'checkout_android_native_support':
-    False,
-  'checkout_google_benchmark':
-    False,
-  'checkout_clang_tidy':
-    True,
+  'checkout_nacl': False,
+  'checkout_libaom': True,
+  'checkout_oculus_sdk': False,
+  'checkout_openxr': False,
+  'build_with_chromium': True,
+  'checkout_android': False,
+  'checkout_android_native_support': False,
+  'checkout_google_benchmark': False,
+  'checkout_clang_tidy': True,
 }
 
 deps = {
+  # Custom Chromium repository and branch
   'src': {
-    'url': (Var("chromium_git")) + '/chromium/src.git@' + (Var("chromium_version")),
+    'url': 'https://github.com/filip-strelec/chromium-for-games.git@implement_more_gamepads',
     'condition': 'checkout_chromium and process_deps',
   },
   'src/third_party/nan': {
@@ -97,10 +67,10 @@ deps = {
   },
   'src/third_party/squirrel.mac/vendor/ReactiveObjC': {
     'url': Var("reactiveobjc_git") + '/ReactiveObjC.git@' + Var("reactiveobjc_version"),
-    'condition': 'process_deps'
+    'condition': 'process_deps',
   },
   'src/third_party/squirrel.mac/vendor/Mantle': {
-    'url':  Var("mantle_git") + '/Mantle.git@' + Var("mantle_version"),
+    'url': Var("mantle_git") + '/Mantle.git@' + Var("mantle_version"),
     'condition': 'process_deps',
   }
 }
